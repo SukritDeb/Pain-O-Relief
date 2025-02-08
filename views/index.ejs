@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adaptive Exercise Plan</title>
     <style>
-        /* Reset default margin and padding */
         * {
             margin: 0;
             padding: 0;
@@ -39,29 +38,84 @@
             margin-bottom: 1rem;
         }
 
-        .chatbot-button {
+        /* Profile Section */
+        .profile-section {
             position: fixed;
             top: 20px;
             right: 20px;
             z-index: 1000;
-            background: none;
+        }
+
+        .profile-button {
+            background: #2b6cb0;
             border: none;
+            padding: 8px 16px;
+            border-radius: 50px;
             cursor: pointer;
-            transition: transform 0.2s;
-            width: 60px;
-            height: 60px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 10px rgba(43, 108, 176, 0.2);
+            transition: all 0.3s ease;
         }
 
-        .chatbot-button:hover {
-            transform: scale(1.1);
+        .profile-button:hover {
+            background: #1a4a80;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(43, 108, 176, 0.3);
         }
 
-        .chatbot-button img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
+        .profile-dropdown {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            display: none;
+            min-width: 200px;
+            border: 1px solid rgba(43, 108, 176, 0.1);
+            overflow: hidden;
         }
 
+        .profile-dropdown.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .profile-dropdown a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: #1a365d;
+            transition: all 0.2s ease;
+        }
+
+        .profile-dropdown a:hover {
+            background: #f0f7ff;
+            color: #2b6cb0;
+        }
+
+        .profile-dropdown a:first-child {
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        /* Video Grid */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(1, 1fr);
@@ -106,28 +160,84 @@
         }
 
         .watch-button {
-            background-color: #63b3ed;
+            width: 100%;
+            background: #63b3ed;
             color: white;
             padding: 0.5rem 1rem;
             border: none;
             border-radius: 0.25rem;
             cursor: pointer;
             transition: background-color 0.2s;
-            text-decoration: none;
+            margin-bottom: 1rem;
             display: inline-block;
             text-align: center;
+            text-decoration: none;
         }
 
         .watch-button:hover {
-            background-color: #2b6cb0;
+            background: #2b6cb0;
         }
 
+        .video-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .video-checkbox input {
+            width: 1rem;
+            height: 1rem;
+            cursor: pointer;
+        }
+
+        /* Progress Section */
+        .progress-section {
+            background: linear-gradient(135deg, #f0f7ff, #e2e8f0);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            height: 12px;
+            background: #e2e8f0;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 1rem auto;
+            max-width: 600px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #63b3ed, #2b6cb0);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 6px;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2b6cb0;
+            margin-top: 1rem;
+        }
+
+        .progress-message {
+            text-align: center;
+            color: #4a5568;
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+
+        /* FAQ Section */
         .faq-section {
             background: white;
             border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .category-title {
@@ -135,7 +245,7 @@
             font-weight: 600;
             color: #2b6cb0;
             padding: 1rem;
-            background-color: #f8fafc;
+            background: #f8fafc;
             border-bottom: 1px solid #e2e8f0;
         }
 
@@ -158,183 +268,278 @@
             align-items: center;
         }
 
+        .faq-question:hover {
+            background: #f0f7ff;
+        }
+
         .faq-question::after {
             content: '▼';
             font-size: 0.75rem;
             transition: transform 0.2s;
         }
 
-        .faq-answer {
-            max-height: 0;
-            color: #2b6cb0;
-            overflow: hidden;
-            transition: max-height 0.2s ease-out;
-            padding: 0 1rem;
-        }
-
         .faq-item.active .faq-question::after {
             transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            color: #2b6cb0;
+            padding: 0 1rem;
         }
 
         .faq-item.active .faq-answer {
             max-height: 300px;
             padding: 1rem;
         }
+
+        @media (max-width: 640px) {
+            .profile-button span {
+                display: none;
+            }
+
+            .profile-button {
+                width: 40px;
+                height: 40px;
+                padding: 0;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
-    
-    <script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></script>
-<script src="https://files.bpcontent.cloud/2025/02/07/16/20250207163125-O0B7JUVW.js"></script>
+    <!-- Profile Section -->
+    <div class="profile-section">
+        <button class="profile-button">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/>
+                <path d="M12 6a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
+                <path d="M18 18a6 6 0 0 0-12 0"/>
+            </svg>
+            <span><%= user.Name %></span>
+        </button>
+        <div class="profile-dropdown">
+            <a href="/dashboard">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/>
+                    <path d="M12 6a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
+                </svg>
+                View Profile
+            </a>
+            <a href="/">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                    <polyline points="16 17 21 12 16 7"/>
+                    <line x1="21" y1="12" x2="9" y2="12"/>
+                </svg>
+                Log Out
+            </a>
+        </div>
+    </div>
+
     <div class="container">
         <h1>Customized Adaptive Exercise Plan</h1>
 
+        <!-- Video Section -->
         <section>
-            <h2>Some of Our Exercise Videos</h2>
+            <h2>Exercise Videos</h2>
             <div class="video-grid">
                 <div class="video-card">
-                    <img src="https://hips.hearstapps.com/hmg-prod/images/standing-quad-stretch-stretching-for-runners-1658846459.jpg?crop=0.668xw:1.00xh;0.111xw,0&resize=980:*" alt="Gentle Stretching">
+                    <img src="<%= link_array[1] %>" alt="Gentle Stretching">
                     <div class="video-content">
                         <h3 class="video-title">Gentle Stretching</h3>
-                        <a href="https://youtu.be/kfjVFQWWiZw?si=sHQ_ZBybZ8M1m2XA" class="watch-button" target="_blank">Watch Video</a>
+                        <a href="<%= link_array[0] %>" class="watch-button" target="_blank">Watch Video</a>
+                        <div class="video-checkbox">
+                            <input type="checkbox" id="video1">
+                            <label for="video1">Mark as Completed</label>
+                        </div>
                     </div>
                 </div>
 
                 <div class="video-card">
-                    <img src="https://i0.wp.com/www.muscleandfitness.com/wp-content/uploads/2024/11/Fit-elder-male-performing-a-cardio-100-low-intensity-workout-to-build-his-heart-health-using-jump-rope-exercises.jpg?quality=86&strip=all" alt="Low-Impact Cardio">
+                    <img src="<%= link_array[3] %>" alt="Low-Impact Cardio">
                     <div class="video-content">
                         <h3 class="video-title">Low-Impact Cardio</h3>
-                        <a href="https://youtu.be/ImI63BUUPwU?si=yiVCVMbfvHckDuag" class="watch-button" target="_blank">Watch Video</a>
+                        <a href="<%= link_array[2] %>" class="watch-button" target="_blank">Watch Video</a>
+                        <div class="video-checkbox">
+                            <input type="checkbox" id="video2">
+                            <label for="video2">Mark as Completed</label>
+                        </div>
                     </div>
                 </div>
 
                 <div class="video-card">
-                    <img src="https://simplifaster.com/wp-content/uploads/2023/04/Core-Dilemmas-1024x536.jpg" alt="Core Strengthening">
+                    <img src="<%= link_array[5] %>" alt="Core Strengthening">
                     <div class="video-content">
                         <h3 class="video-title">Core Strengthening</h3>
-                        <a href="https://youtu.be/3XVGDYuPay4?si=VFs5fmeSdAM1f1JR" class="watch-button" target="_blank">Watch Video</a>
+                        <a href="<%= link_array[4] %>" class="watch-button" target="_blank">Watch Video</a>
+                        <div class="video-checkbox">
+                            <input type="checkbox" id="video3">
+                            <label for="video3">Mark as Completed</label>
+                        </div>
                     </div>
                 </div>
 
                 <div class="video-card">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA6ZjvUyxZGfOi3AvCQzsOwB-oEYM9HrORPg&s" alt="Balance Exercises">
+                    <img src="<%= link_array[7] %>" alt="Balance Exercises">
                     <div class="video-content">
                         <h3 class="video-title">Balance Exercises</h3>
-                        <a href="https://youtu.be/w3XJEcRpKhI?si=W7tplJCdCo2bf9Pr" class="watch-button" target="_blank">Watch Video</a>
+                        <a href="<%= link_array[6] %>" class="watch-button" target="_blank">Watch Video</a>
+                        <div class="video-checkbox">
+                            <input type="checkbox" id="video4">
+                            <label for="video4">Mark as Completed</label>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Progress Section -->
+        <section class="progress-section">
+            <h2>Your Progress</h2>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 8px;">
+                    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+                    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+                    <path d="M4 22h16"/>
+                    <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+                    <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+                    <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+                </svg>
+                <span>0% Complete</span>
+            </div>
+            <div class="progress-message">Keep going! You're making progress!</div>
+        </section>
+
+        <!-- FAQ Section -->
         <section>
             <h2>Frequently Asked Questions</h2>
-            
-            <!-- General Questions -->
             <div class="faq-section">
                 <h3 class="category-title">General Questions</h3>
                 <div class="faq-item">
-                    <button class="faq-question">What is this platform about?</button>
+                    <button class="faq-question">
+                        What is this platform about?
+                    </button>
                     <div class="faq-answer">
                         This platform provides personalized video exercise routines tailored to users' muscle pain areas and other health conditions. It also offers weekly progress feedback, live consultations with physiotherapists, and a chatbot for instant exercise suggestions.
                     </div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-question">How do I get started with the exercise plans?</button>
+                    <button class="faq-question">
+                        How do I get started with the exercise plans?
+                    </button>
                     <div class="faq-answer">
                         Sign up on our platform, answer a series of questions about your muscle pain or health issues, and receive a customized exercise routine.
                     </div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-question">Is this platform suitable for all age groups?</button>
+                    <button class="faq-question">
+                        Is this platform suitable for all age groups?
+                    </button>
                     <div class="faq-answer">
                         Yes, our platform offers safe and adaptable exercises for people of all age groups. However, we recommend consulting a healthcare professional for specific health conditions.
                     </div>
                 </div>
-                <div class="faq-item">
-                    <button class="faq-question">Are the exercise routines safe for beginners?</button>
-                    <div class="faq-answer">
-                        Absolutely! Our routines are designed to cater to all experience levels, including complete beginners.
-                    </div>
-                </div>
             </div>
 
-            <!-- Exercise & Health Routines -->
             <div class="faq-section">
                 <h3 class="category-title">Exercise & Health Routines</h3>
                 <div class="faq-item">
-                    <button class="faq-question">How are the exercise routines customized for my specific needs?</button>
+                    <button class="faq-question">
+                        How are the exercise routines customized?
+                    </button>
                     <div class="faq-answer">
-                        Our algorithm and physiotherapists analyze the answers you provide about your muscle pain and health conditions to create a personalized routine that targets your specific concerns.
+                        Our algorithm and physiotherapists analyze your answers about muscle pain and health conditions to create a personalized routine targeting your specific concerns.
                     </div>
                 </div>
-                <!-- Add more Exercise & Health Routines questions here -->
             </div>
 
-            <!-- Consultation with Physiotherapists -->
             <div class="faq-section">
                 <h3 class="category-title">Consultation with Physiotherapists</h3>
                 <div class="faq-item">
-                    <button class="faq-question">How do I book a live consultation with a physiotherapist?</button>
+                    <button class="faq-question">
+                        How do I book a consultation?
+                    </button>
                     <div class="faq-answer">
                         Go to the "Live Consultation" section of your dashboard, select an available physiotherapist, and book a convenient time slot.
                     </div>
                 </div>
-                <!-- Add more Consultation questions here -->
-            </div>
-
-            <!-- Feedback & Progress Tracking -->
-            <div class="faq-section">
-                <h3 class="category-title">Feedback & Progress Tracking</h3>
-                <div class="faq-item">
-                    <button class="faq-question">How does the weekly feedback system work?</button>
-                    <div class="faq-answer">
-                        Each week, you'll complete a brief assessment of your progress and challenges. Our algorithm will review your responses and adjust your exercise routine accordingly.
-                    </div>
-                </div>
-                <!-- Add more Feedback & Progress questions here -->
-            </div>
-
-            <!-- Chatbot Assistance -->
-            <div class="faq-section">
-                <h3 class="category-title">Chatbot Assistance</h3>
-                <div class="faq-item">
-                    <button class="faq-question">How do I access the chatbot for exercise suggestions?</button>
-                    <div class="faq-answer">
-                        Simply click the "Chatbot" button on your dashboard to start a conversation and get instant suggestions.
-                    </div>
-                </div>
-                <!-- Add more Chatbot questions here -->
-            </div>
-
-            <!-- Account & Technical Support -->
-            <div class="faq-section">
-                <h3 class="category-title">Account & Technical Support</h3>
-                <div class="faq-item">
-                    <button class="faq-question">How do I create an account?</button>
-                    <div class="faq-answer">
-                        Click the "Sign Up" button, provide the required information, and follow the instructions to set up your profile.
-                    </div>
-                </div>
-                <!-- Add more Account & Technical Support questions here -->
             </div>
         </section>
     </div>
 
+    <!-- Chatbot Scripts -->
+    <script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></script>
+    <script src="https://files.bpcontent.cloud/2025/02/07/16/20250207163125-O0B7JUVW.js"></script>
+
     <script>
-        document.querySelectorAll('.faq-question').forEach(button => {
-            button.addEventListener('click', () => {
-                const item = button.parentElement;
-                document.querySelectorAll('.faq-item').forEach(otherItem => {
-                    if (otherItem !== item) {
-                        otherItem.classList.remove('active');
-                    }
-                });
-                item.classList.toggle('active');
-            });
+        // Profile Dropdown
+        const profileButton = document.querySelector('.profile-button');
+        const profileDropdown = document.querySelector('.profile-dropdown');
+
+        profileButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            profileDropdown.classList.toggle('active');
         });
-        document.querySelector('.chatbot-button').addEventListener('click', () => {
-            // Add your chatbot initialization logic here
-            console.log('Chatbot clicked');
+
+        document.addEventListener('click', (e) => {
+            if (!profileButton.contains(e.target)) {
+                profileDropdown.classList.remove('active');
+            }
+        });
+
+        // Progress Tracking
+        const checkboxes = document.querySelectorAll('.video-checkbox input');
+        const progressFill = document.querySelector('.progress-fill');
+        const progressText = document.querySelector('.progress-text span');
+        const progressMessage = document.querySelector('.progress-message');
+
+        function updateProgress() {
+            const total = checkboxes.length;
+            const completed = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+            const percentage = (completed / total) * 100;
+
+            progressFill.style.width = `${percentage}%`;
+            progressText.textContent = `${Math.round(percentage)}% Complete`;
+
+            if (percentage === 100) {
+                progressMessage.textContent = "🎉 Congratulations! You've completed all exercises!";
+            } else if (percentage >= 75) {
+                progressMessage.textContent = "🔥 Almost there! Keep up the great work!";
+            } else if (percentage >= 50) {
+                progressMessage.textContent = "🚀 Halfway there! You're doing amazing!";
+            } else {
+                progressMessage.textContent = "💪 Keep going! You're making progress!";
+            }
+        }
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateProgress);
+        });
+
+        // FAQ Functionality
+        const faqQuestions = document.querySelectorAll('.faq-question');
+
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const wasActive = faqItem.classList.contains('active');
+                
+                // Close all FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                // Toggle the clicked item
+                if (!wasActive) {
+                    faqItem.classList.add('active');
+                }
+            });
         });
     </script>
 </body>

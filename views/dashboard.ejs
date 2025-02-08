@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: #ebf8ff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      padding: 3rem 1rem;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 48rem;
+      margin: 0 auto;
+    }
+
+    .profile-card {
+      background-color: white;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      position: relative;
+      height: 8rem;
+      background: linear-gradient(to right, #1a365d, #2b6cb0);
+    }
+
+    .avatar-wrapper {
+      position: absolute;
+      bottom: -4rem;
+      left: 2rem;
+    }
+
+    .avatar {
+      position: relative;
+      width: 8rem;
+      height: 8rem;
+      background-color: #e2e8f0;
+      border-radius: 50%;
+      border: 4px solid white;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar i {
+      font-size: 3rem;
+      color: #a0aec0;
+    }
+
+    .status-indicator {
+      position: absolute;
+      bottom: 0.5rem;
+      right: 0.5rem;
+      width: 1rem;
+      height: 1rem;
+      background-color: #48bb78;
+      border-radius: 50%;
+      border: 2px solid white;
+    }
+
+    .profile-content {
+      padding: 5rem 2rem 2rem;
+    }
+
+    .profile-header {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .profile-header {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .name {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #1a202c;
+    }
+
+    .email {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #2b6cb0;
+      margin-top: 0.5rem;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .info-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .basic-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #1a365d;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .info-icon {
+      color: #2b6cb0;
+      width: 1.25rem;
+      margin-top: 0.25rem;
+    }
+
+    .info-content .label {
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+
+    .info-content .value {
+      font-weight: 500;
+      color: #1a202c;
+    }
+
+    .pain-areas {
+      background-color: #f9fafb;
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="profile-card">
+      <div class="header">
+        <div class="avatar-wrapper">
+          <div class="avatar">
+            <i class="fas fa-user"></i>
+            <div class="status-indicator"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-content">
+        <div class="profile-header">
+          <div>
+            <h1 class="name"><%= user.Name.toUpperCase() %></h1>
+            <div class="email">
+              <i class="fas fa-envelope"></i>
+              <span><%= user.Email %></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-grid">
+          <div class="basic-info">
+            <h2 class="section-title">Basic Information</h2>
+            <div class="info-item">
+              <i class="fas fa-user info-icon"></i>
+              <div class="info-content">
+                <p class="label">Age & Gender</p>
+                <p class="value"><%= user.Age %> YEARS, <%= user.Gender.toUpperCase() %></p>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-briefcase info-icon"></i>
+              <div class="info-content">
+                <p class="label">Profession</p>
+                <p class="value"><%= user.Profession.toUpperCase() %></p>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-dumbbell info-icon"></i>
+              <div class="info-content">
+                <p class="label">Previous Workout Experience</p>
+                <p class="value"><%= user.Prev_Workout_Exp.toUpperCase() %></p>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-weight info-icon"></i>
+              <div class="info-content">
+                <p class="label">BMI</p>
+                <p class="value"><%= user.BMI %></p>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-clock info-icon"></i>
+              <div class="info-content">
+                <p class="label">Activity Time</p>
+                <p class="value"><%= user.Activity_time %></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pain-areas">
+            <h2 class="section-title">Pain Areas</h2>
+            <span class="tag"><%= user.Pain_Area.toUpperCase() %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
