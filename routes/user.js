@@ -2,14 +2,19 @@ const express=require("express")
 const router=express.Router();
 const User = require("../models/user");
 const User2 = require("../models/patient_details");
+const videosuggester=require("../Video_suggest");
 router.get("/",async(req,res)=>{
     return res.render("home")
 });
 router.get("/index",async(req,res)=>{
     const email=req.cookies.userEmail;
     const user = await User2.findOne({ Email: email });
-    console.log(user);
-    return res.render("index",{user})
+    
+    const  age=Number(user.Age);
+    const  pain=user.Pain_Area;
+    const link_array=videosuggester(age, pain);
+    return res.render("index",{user,link_array})
+
 });
 router.get("/login", (req, res) => {
     const error = req.session.error; 

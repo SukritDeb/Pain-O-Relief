@@ -4,20 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pain-O-Relief</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
         :root {
-            --primary: #1a365d;
-            --secondary: #2b6cb0;
-            --accent: #63b3ed;
-            --background: #ebf8ff;
-            --text: #1a202c;
-            --success: #48bb78;
+            --primary: #2563eb;
+            --secondary: #3b82f6;
+            --accent: #60a5fa;
+            --background: #f8fafc;
+            --text: #1e293b;
+            --success: #22c55e;
             --white: #ffffff;
-        }
-
-        /* Existing styles remain the same until footer */
-        html {
-            scroll-behavior: smooth;
         }
 
         * {
@@ -26,10 +24,14 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             background: var(--background);
             color: var(--text);
-            font-family: 'Inter', system-ui, sans-serif;
+            font-family: 'Poppins', sans-serif;
             line-height: 1.6;
         }
 
@@ -40,12 +42,19 @@
         }
 
         header {
-            background: var(--white);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 0.5rem 0;
         }
 
         nav {
@@ -53,18 +62,52 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 2rem;
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 101;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
         }
 
         nav ul {
-            display: flex;
-            gap: 3rem;
+            position: fixed;
+            top: 80px;
+            right: -100%;
+            height: calc(100vh - 80px);
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* Center vertically */
+            gap: 2rem;
             list-style: none;
+            transition: right 0.3s ease;
+            z-index: 100;
+            padding: 2rem 0;
+            display: flex; /* Ensure flexbox is applied */
+        }
+
+        nav ul.active {
+            right: 0;
         }
 
         nav a {
@@ -73,6 +116,9 @@
             font-weight: 500;
             position: relative;
             padding: 0.5rem 0;
+            transition: color 0.3s ease;
+            font-size: 1.2rem;
+            text-align: center; /* Center text horizontally */
         }
 
         nav a::after {
@@ -82,12 +128,63 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--secondary);
+            background: var(--primary);
             transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary);
         }
 
         nav a:hover::after {
             width: 100%;
+        }
+
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 101;
+            padding: 10px;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active div:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active div:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active div:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
 
         .hero {
@@ -96,38 +193,83 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            color: var(--white);
             position: relative;
+            overflow: hidden;
             padding: 6rem 2rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('https://img.freepik.com/premium-photo/watch-with-dumbbells-barbell-mat-sports-3d-rendering-illustration-retro-wave-style_499459-574.jpg?semt=ais_hybrid') center/cover no-repeat;
+            opacity: 0.2;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         .hero-content {
             max-width: 800px;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            z-index: 1;
         }
 
         .hero h1 {
-            font-size: 4rem;
+            font-size: 4.5rem;
             margin-bottom: 1.5rem;
             line-height: 1.2;
+            animation: fadeInUp 1s ease;
         }
 
         .hero p {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             opacity: 0.9;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .cta-button {
             background: var(--white);
             color: var(--primary);
-            padding: 1rem 2.5rem;
+            padding: 1.2rem 3rem;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
             display: inline-block;
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: translateX(-100%);
         }
 
         .cta-button:hover {
@@ -137,8 +279,18 @@
             color: var(--white);
         }
 
+        .cta-button:hover::before {
+            animation: shine 1.5s ease-in-out;
+        }
+
+        @keyframes shine {
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
         .about {
-            padding: 6rem 0;
+            padding: 8rem 0;
             background: var(--white);
         }
 
@@ -151,8 +303,20 @@
 
         .about h2 {
             color: var(--primary);
-            font-size: 2rem;
+            font-size: 2.5rem;
             margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .about h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
         }
 
         .feature-list {
@@ -160,35 +324,49 @@
         }
 
         .feature-list li {
-            padding: 1rem 0;
+            padding: 1.2rem 0;
             border-bottom: 1px solid #e2e8f0;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .feature-list li::before {
+            content: '→';
+            color: var(--primary);
+            font-weight: bold;
         }
 
         .feature-list li:hover {
             transform: translateX(10px);
-            color: var(--secondary);
+            color: var(--primary);
         }
 
-        /* New Contact Section Styles */
         .contact {
-            padding: 6rem 0;
-            background: var(--white);
+            padding: 8rem 0;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
             scroll-margin-top: 80px;
         }
 
         .contact-container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 2rem;
-            background: var(--background);
+            padding: 3rem;
+            background: var(--white);
             border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-container:hover {
+            transform: translateY(-5px);
         }
 
         .contact h2 {
             color: var(--primary);
-            font-size: 2rem;
+            font-size: 2.5rem;
             margin-bottom: 2rem;
             text-align: center;
         }
@@ -199,20 +377,94 @@
 
         .contact-details h3 {
             color: var(--secondary);
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
         }
 
         .contact-details a {
-            color: var(--secondary);
+            color: var(--text);
             text-decoration: none;
             display: block;
-            margin: 1rem 0;
-            transition: color 0.3s ease;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            background: var(--background);
         }
 
         .contact-details a:hover {
             color: var(--primary);
+            background: #f1f5f9;
+            transform: translateX(10px);
+        }
+
+        @media screen and (max-width: 768px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .hero p {
+                font-size: 1.5rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .contact-container {
+                padding: 2rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .hero {
+                padding: 4rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .cta-button {
+                padding: 1rem 2rem;
+            }
+
+            .about {
+                padding: 4rem 0;
+            }
+
+            .about h2 {
+                font-size: 2rem;
+            }
+
+            .contact {
+                padding: 4rem 0;
+            }
+
+            .contact h2 {
+                font-size: 2rem;
+            }
+
+            .contact-details h3 {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
         }
 
         footer {
@@ -220,14 +472,33 @@
             color: var(--white);
             text-align: center;
             padding: 2rem;
-            margin-top: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--secondary), var(--primary));
         }
     </style>
 </head>
 <body>
     <header>
         <nav class="container">
-            <div class="logo">Pain-O-Relief</div>
+            <div class="logo">
+                <div class="logo-icon">P</div>
+                Pain-O-Relief
+            </div>
+            <div class="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
             <ul>
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
@@ -247,11 +518,11 @@
     <section id="about" class="about">
         <div class="container">
             <div class="about-grid">
-                <div>
+                <div data-aos="fade-right">
                     <h2>Our Approach</h2>
-                    <p>We combine cutting-edge technology with personalized care to create a comprehensive pain management solution that works for you.</p>
+                    <p>We combine cutting-edge technology with personalized care to create a comprehensive pain management solution that works for you. Our team of experts is dedicated to helping you achieve a pain-free lifestyle through innovative treatments and constant support.</p>
                 </div>
-                <div>
+                <div data-aos="fade-left">
                     <h2>Key Features</h2>
                     <ul class="feature-list">
                         <li>Smart Pain Assessment Technology</li>
@@ -266,7 +537,7 @@
 
     <section id="contact" class="contact">
         <div class="container">
-            <div class="contact-container">
+            <div class="contact-container" data-aos="zoom-in">
                 <h2>Contact Us</h2>
                 <div class="contact-details">
                     <h3>For More Details:</h3>
@@ -282,5 +553,59 @@
     <footer>
         <p>&copy; 2025 Pain-O-Relief. All Rights Reserved.</p>
     </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        const hamburger = document.querySelector('.hamburger');
+        const navUl = document.querySelector('nav ul');
+        const overlay = document.createElement('div');
+        overlay.classList.add('overlay');
+        document.body.appendChild(overlay);
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navUl.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        overlay.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navUl.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // Close menu on link click
+        navUl.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navUl.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+        });
+
+        // Close menu on scroll
+        window.addEventListener('scroll', () => {
+            if (navUl.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navUl.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
