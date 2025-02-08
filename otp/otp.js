@@ -5,17 +5,17 @@ function generateOTP() {
     return otp
 }
 const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
+    host: "",
+    port: ,
     secure: true, 
     auth: {
-      user: "subhajitsccseaot@gmail.com",
-      pass: "rwoo rdbu nmly fanp",
+      user: "",
+      pass: "",
     },
 });
 async function SendOTP(mail,otp){
     var mailoptions={
-        from: "subhajitsccseaot@gmail.com", 
+        from: "", 
         to: mail,
         subject: "OTP FOR PAIN-O- RELIEF", 
         text: "This is you OTP for signing up in Pain-O-Relief.\n OTP:"+otp+"\n Thanks from Team Nexarion",
