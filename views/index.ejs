@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adaptive Exercise Plan</title>
+    <style>
+        /* Reset default margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: #ebf8ff;
+            color: #1a202c;
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #1a365d;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2b6cb0;
+            margin-bottom: 1rem;
+        }
+
+        .chatbot-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s;
+            width: 60px;
+            height: 60px;
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.1);
+        }
+
+        .chatbot-button img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .video-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .video-content {
+            padding: 1rem;
+        }
+
+        .video-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1a365d;
+            margin-bottom: 0.5rem;
+        }
+
+        .watch-button {
+            background-color: #63b3ed;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .watch-button:hover {
+            background-color: #2b6cb0;
+        }
+
+        .faq-section {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .category-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2b6cb0;
+            padding: 1rem;
+            background-color: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1rem;
+            text-align: left;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #1a365d;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question::after {
+            content: '▼';
+            font-size: 0.75rem;
+            transition: transform 0.2s;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            color: #2b6cb0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            padding: 0 1rem;
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: rotate(180deg);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body>
+    
+    <script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></script>
+<script src="https://files.bpcontent.cloud/2025/02/07/16/20250207163125-O0B7JUVW.js"></script>
+    <div class="container">
+        <h1>Customized Adaptive Exercise Plan</h1>
+
+        <section>
+            <h2>Some of Our Exercise Videos</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <img src="https://hips.hearstapps.com/hmg-prod/images/standing-quad-stretch-stretching-for-runners-1658846459.jpg?crop=0.668xw:1.00xh;0.111xw,0&resize=980:*" alt="Gentle Stretching">
+                    <div class="video-content">
+                        <h3 class="video-title">Gentle Stretching</h3>
+                        <a href="https://youtu.be/kfjVFQWWiZw?si=sHQ_ZBybZ8M1m2XA" class="watch-button" target="_blank">Watch Video</a>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <img src="https://i0.wp.com/www.muscleandfitness.com/wp-content/uploads/2024/11/Fit-elder-male-performing-a-cardio-100-low-intensity-workout-to-build-his-heart-health-using-jump-rope-exercises.jpg?quality=86&strip=all" alt="Low-Impact Cardio">
+                    <div class="video-content">
+                        <h3 class="video-title">Low-Impact Cardio</h3>
+                        <a href="https://youtu.be/ImI63BUUPwU?si=yiVCVMbfvHckDuag" class="watch-button" target="_blank">Watch Video</a>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <img src="https://simplifaster.com/wp-content/uploads/2023/04/Core-Dilemmas-1024x536.jpg" alt="Core Strengthening">
+                    <div class="video-content">
+                        <h3 class="video-title">Core Strengthening</h3>
+                        <a href="https://youtu.be/3XVGDYuPay4?si=VFs5fmeSdAM1f1JR" class="watch-button" target="_blank">Watch Video</a>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA6ZjvUyxZGfOi3AvCQzsOwB-oEYM9HrORPg&s" alt="Balance Exercises">
+                    <div class="video-content">
+                        <h3 class="video-title">Balance Exercises</h3>
+                        <a href="https://youtu.be/w3XJEcRpKhI?si=W7tplJCdCo2bf9Pr" class="watch-button" target="_blank">Watch Video</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Frequently Asked Questions</h2>
+            
+            <!-- General Questions -->
+            <div class="faq-section">
+                <h3 class="category-title">General Questions</h3>
+                <div class="faq-item">
+                    <button class="faq-question">What is this platform about?</button>
+                    <div class="faq-answer">
+                        This platform provides personalized video exercise routines tailored to users' muscle pain areas and other health conditions. It also offers weekly progress feedback, live consultations with physiotherapists, and a chatbot for instant exercise suggestions.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">How do I get started with the exercise plans?</button>
+                    <div class="faq-answer">
+                        Sign up on our platform, answer a series of questions about your muscle pain or health issues, and receive a customized exercise routine.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Is this platform suitable for all age groups?</button>
+                    <div class="faq-answer">
+                        Yes, our platform offers safe and adaptable exercises for people of all age groups. However, we recommend consulting a healthcare professional for specific health conditions.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Are the exercise routines safe for beginners?</button>
+                    <div class="faq-answer">
+                        Absolutely! Our routines are designed to cater to all experience levels, including complete beginners.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise & Health Routines -->
+            <div class="faq-section">
+                <h3 class="category-title">Exercise & Health Routines</h3>
+                <div class="faq-item">
+                    <button class="faq-question">How are the exercise routines customized for my specific needs?</button>
+                    <div class="faq-answer">
+                        Our algorithm and physiotherapists analyze the answers you provide about your muscle pain and health conditions to create a personalized routine that targets your specific concerns.
+                    </div>
+                </div>
+                <!-- Add more Exercise & Health Routines questions here -->
+            </div>
+
+            <!-- Consultation with Physiotherapists -->
+            <div class="faq-section">
+                <h3 class="category-title">Consultation with Physiotherapists</h3>
+                <div class="faq-item">
+                    <button class="faq-question">How do I book a live consultation with a physiotherapist?</button>
+                    <div class="faq-answer">
+                        Go to the "Live Consultation" section of your dashboard, select an available physiotherapist, and book a convenient time slot.
+                    </div>
+                </div>
+                <!-- Add more Consultation questions here -->
+            </div>
+
+            <!-- Feedback & Progress Tracking -->
+            <div class="faq-section">
+                <h3 class="category-title">Feedback & Progress Tracking</h3>
+                <div class="faq-item">
+                    <button class="faq-question">How does the weekly feedback system work?</button>
+                    <div class="faq-answer">
+                        Each week, you'll complete a brief assessment of your progress and challenges. Our algorithm will review your responses and adjust your exercise routine accordingly.
+                    </div>
+                </div>
+                <!-- Add more Feedback & Progress questions here -->
+            </div>
+
+            <!-- Chatbot Assistance -->
+            <div class="faq-section">
+                <h3 class="category-title">Chatbot Assistance</h3>
+                <div class="faq-item">
+                    <button class="faq-question">How do I access the chatbot for exercise suggestions?</button>
+                    <div class="faq-answer">
+                        Simply click the "Chatbot" button on your dashboard to start a conversation and get instant suggestions.
+                    </div>
+                </div>
+                <!-- Add more Chatbot questions here -->
+            </div>
+
+            <!-- Account & Technical Support -->
+            <div class="faq-section">
+                <h3 class="category-title">Account & Technical Support</h3>
+                <div class="faq-item">
+                    <button class="faq-question">How do I create an account?</button>
+                    <div class="faq-answer">
+                        Click the "Sign Up" button, provide the required information, and follow the instructions to set up your profile.
+                    </div>
+                </div>
+                <!-- Add more Account & Technical Support questions here -->
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.parentElement;
+                document.querySelectorAll('.faq-item').forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                item.classList.toggle('active');
+            });
+        });
+        document.querySelector('.chatbot-button').addEventListener('click', () => {
+            // Add your chatbot initialization logic here
+            console.log('Chatbot clicked');
+        });
+    </script>
+</body>
+</html>
