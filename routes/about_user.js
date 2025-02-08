@@ -29,9 +29,9 @@ router.post("/", async (req, res) => {
     const painArea = body.pain_area || 'Not specified';
 
     try {
-        console.log(req.signedCookies.userEmail);
+    
         const newUser = await User.create({
-            Email: req.signedCookies.userEmail,
+            Email: req.cookies.userEmail,
             Name: body.name,
             Age: body.age,
             Gender: body.gender,
