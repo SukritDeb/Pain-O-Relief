@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -90,6 +91,7 @@
                 opacity: 0;
                 transform: translateY(-10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -309,238 +311,282 @@
         }
     </style>
 </head>
-<body>
-    <!-- Profile Section -->
-    <div class="profile-section">
-        <button class="profile-button">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/>
-                <path d="M12 6a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
-                <path d="M18 18a6 6 0 0 0-12 0"/>
-            </svg>
-            <span><%= user.Name %></span>
-        </button>
-        <div class="profile-dropdown">
-            <a href="/dashboard">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/>
-                    <path d="M12 6a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
+
+<body><a href="/video" style="
+    position: fixed; 
+    width: 180px;
+    height: 37px;
+    top: 20px; 
+    right: 220px; 
+    background: #28a745; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 50px; 
+    cursor: pointer; 
+    font-size: 1rem;
+    text-decoration-line:none; 
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(40, 167, 69, 0.3); 
+    transition: all 0.3s ease;" onmouseover="this.style.background='#218838'"
+        onmouseout="this.style.background='#28a745'" onclick="fetchDoctorSupport()">
+        Doctor's Support
+</a>
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <button class="profile-button">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z" />
+                    <path d="M12 6a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" />
+                    <path d="M18 18a6 6 0 0 0-12 0" />
                 </svg>
-                View Profile
-            </a>
-            <a href="/">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                    <polyline points="16 17 21 12 16 7"/>
-                    <line x1="21" y1="12" x2="9" y2="12"/>
-                </svg>
-                Log Out
-            </a>
+                <span>
+                    <%= user.Name %>
+                </span>
+            </button>
+            <div class="profile-dropdown">
+                <a href="/dashboard">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z" />
+                        <path d="M12 6a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" />
+                    </svg>
+                    View Profile
+                </a>
+                <a href="/">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                    Log Out
+                </a>
+            </div>
         </div>
-    </div>
 
-    <div class="container">
-        <h1>Customized Adaptive Exercise Plan</h1>
+        <div class="container">
+            <h1>Customized Adaptive Exercise Plan</h1>
 
-        <!-- Video Section -->
-        <section>
-            <h2>Exercise Videos</h2>
-            <div class="video-grid">
-                <div class="video-card">
-                    <img src="<%= link_array[1] %>" alt="Gentle Stretching">
-                    <div class="video-content">
-                        <h3 class="video-title">Gentle Stretching</h3>
-                        <a href="<%= link_array[0] %>" class="watch-button" target="_blank">Watch Video</a>
-                        <div class="video-checkbox">
-                            <input type="checkbox" id="video1">
-                            <label for="video1">Mark as Completed</label>
+            <!-- Video Section -->
+            <section>
+                <h2>Exercise Videos</h2>
+                <div class="video-grid">
+                    <div class="video-card">
+                        <img src="<%= link_array[1] %>" alt="Gentle Stretching">
+                        <div class="video-content">
+                            <h3 class="video-title">Gentle Stretching</h3>
+                            <a href="<%= link_array[0] %>" class="watch-button" target="_blank">Watch Video</a>
+                            <div class="video-checkbox">
+                                <input type="checkbox" id="video1">
+                                <label for="video1">Mark as Completed</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="video-card">
+                        <img src="<%= link_array[3] %>" alt="Low-Impact Cardio">
+                        <div class="video-content">
+                            <h3 class="video-title">Low-Impact Cardio</h3>
+                            <a href="<%= link_array[2] %>" class="watch-button" target="_blank">Watch Video</a>
+                            <div class="video-checkbox">
+                                <input type="checkbox" id="video2">
+                                <label for="video2">Mark as Completed</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="video-card">
+                        <img src="<%= link_array[5] %>" alt="Core Strengthening">
+                        <div class="video-content">
+                            <h3 class="video-title">Core Strengthening</h3>
+                            <a href="<%= link_array[4] %>" class="watch-button" target="_blank">Watch Video</a>
+                            <div class="video-checkbox">
+                                <input type="checkbox" id="video3">
+                                <label for="video3">Mark as Completed</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="video-card">
+                        <img src="<%= link_array[7] %>" alt="Balance Exercises">
+                        <div class="video-content">
+                            <h3 class="video-title">Balance Exercises</h3>
+                            <a href="<%= link_array[6] %>" class="watch-button" target="_blank">Watch Video</a>
+                            <div class="video-checkbox">
+                                <input type="checkbox" id="video4">
+                                <label for="video4">Mark as Completed</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Progress Section -->
+            <section class="progress-section">
+                <h2>Your Progress</h2>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <div class="progress-text">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        style="display: inline; vertical-align: middle; margin-right: 8px;">
+                        <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                        <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                        <path d="M4 22h16" />
+                        <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+                        <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+                        <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                    </svg>
+                    <span>0% Complete</span>
+                </div>
+                <div class="progress-message">Keep going! You're making progress!</div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section>
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-section">
+                    <h3 class="category-title">General Questions</h3>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            What is this platform about?
+                        </button>
+                        <div class="faq-answer">
+                            This platform provides personalized video exercise routines tailored to users' muscle pain
+                            areas and other health conditions. It also offers weekly progress feedback, live
+                            consultations with physiotherapists, and a chatbot for instant exercise suggestions.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            How do I get started with the exercise plans?
+                        </button>
+                        <div class="faq-answer">
+                            Sign up on our platform, answer a series of questions about your muscle pain or health
+                            issues, and receive a customized exercise routine.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            Is this platform suitable for all age groups?
+                        </button>
+                        <div class="faq-answer">
+                            Yes, our platform offers safe and adaptable exercises for people of all age groups. However,
+                            we recommend consulting a healthcare professional for specific health conditions.
                         </div>
                     </div>
                 </div>
 
-                <div class="video-card">
-                    <img src="<%= link_array[3] %>" alt="Low-Impact Cardio">
-                    <div class="video-content">
-                        <h3 class="video-title">Low-Impact Cardio</h3>
-                        <a href="<%= link_array[2] %>" class="watch-button" target="_blank">Watch Video</a>
-                        <div class="video-checkbox">
-                            <input type="checkbox" id="video2">
-                            <label for="video2">Mark as Completed</label>
+                <div class="faq-section">
+                    <h3 class="category-title">Exercise & Health Routines</h3>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            How are the exercise routines customized?
+                        </button>
+                        <div class="faq-answer">
+                            Our algorithm and physiotherapists analyze your answers about muscle pain and health
+                            conditions to create a personalized routine targeting your specific concerns.
                         </div>
                     </div>
                 </div>
 
-                <div class="video-card">
-                    <img src="<%= link_array[5] %>" alt="Core Strengthening">
-                    <div class="video-content">
-                        <h3 class="video-title">Core Strengthening</h3>
-                        <a href="<%= link_array[4] %>" class="watch-button" target="_blank">Watch Video</a>
-                        <div class="video-checkbox">
-                            <input type="checkbox" id="video3">
-                            <label for="video3">Mark as Completed</label>
+                <div class="faq-section">
+                    <h3 class="category-title">Consultation with Physiotherapists</h3>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            How do I book a consultation?
+                        </button>
+                        <div class="faq-answer">
+                            Go to the "Live Consultation" section of your dashboard, select an available
+                            physiotherapist, and book a convenient time slot.
                         </div>
                     </div>
                 </div>
+            </section>
+        </div>
 
-                <div class="video-card">
-                    <img src="<%= link_array[7] %>" alt="Balance Exercises">
-                    <div class="video-content">
-                        <h3 class="video-title">Balance Exercises</h3>
-                        <a href="<%= link_array[6] %>" class="watch-button" target="_blank">Watch Video</a>
-                        <div class="video-checkbox">
-                            <input type="checkbox" id="video4">
-                            <label for="video4">Mark as Completed</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- Chatbot Scripts -->
+        <script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></script>
+        <script src="https://files.bpcontent.cloud/2025/02/07/16/20250207163125-O0B7JUVW.js"></script>
 
-        <!-- Progress Section -->
-        <section class="progress-section">
-            <h2>Your Progress</h2>
-            <div class="progress-bar">
-                <div class="progress-fill"></div>
-            </div>
-            <div class="progress-text">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 8px;">
-                    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
-                    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
-                    <path d="M4 22h16"/>
-                    <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
-                    <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
-                    <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
-                </svg>
-                <span>0% Complete</span>
-            </div>
-            <div class="progress-message">Keep going! You're making progress!</div>
-        </section>
-
-        <!-- FAQ Section -->
-        <section>
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-section">
-                <h3 class="category-title">General Questions</h3>
-                <div class="faq-item">
-                    <button class="faq-question">
-                        What is this platform about?
-                    </button>
-                    <div class="faq-answer">
-                        This platform provides personalized video exercise routines tailored to users' muscle pain areas and other health conditions. It also offers weekly progress feedback, live consultations with physiotherapists, and a chatbot for instant exercise suggestions.
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">
-                        How do I get started with the exercise plans?
-                    </button>
-                    <div class="faq-answer">
-                        Sign up on our platform, answer a series of questions about your muscle pain or health issues, and receive a customized exercise routine.
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">
-                        Is this platform suitable for all age groups?
-                    </button>
-                    <div class="faq-answer">
-                        Yes, our platform offers safe and adaptable exercises for people of all age groups. However, we recommend consulting a healthcare professional for specific health conditions.
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-section">
-                <h3 class="category-title">Exercise & Health Routines</h3>
-                <div class="faq-item">
-                    <button class="faq-question">
-                        How are the exercise routines customized?
-                    </button>
-                    <div class="faq-answer">
-                        Our algorithm and physiotherapists analyze your answers about muscle pain and health conditions to create a personalized routine targeting your specific concerns.
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-section">
-                <h3 class="category-title">Consultation with Physiotherapists</h3>
-                <div class="faq-item">
-                    <button class="faq-question">
-                        How do I book a consultation?
-                    </button>
-                    <div class="faq-answer">
-                        Go to the "Live Consultation" section of your dashboard, select an available physiotherapist, and book a convenient time slot.
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- Chatbot Scripts -->
-    <script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></script>
-    <script src="https://files.bpcontent.cloud/2025/02/07/16/20250207163125-O0B7JUVW.js"></script>
-
-    <script>
-        // Profile Dropdown
-        const profileButton = document.querySelector('.profile-button');
-        const profileDropdown = document.querySelector('.profile-dropdown');
-
-        profileButton.addEventListener('click', (e) => {
-            e.stopPropagation();
-            profileDropdown.classList.toggle('active');
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!profileButton.contains(e.target)) {
-                profileDropdown.classList.remove('active');
+        <script>
+            //problem
+            function fetchDoctorSupport() {
+                fetch('/video', { method: 'GET' })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.render();
+                    })
+                    .then(data => console.log('Response:', data))
+                    .catch(error => console.error('Error:', error));
             }
-        });
 
-        // Progress Tracking
-        const checkboxes = document.querySelectorAll('.video-checkbox input');
-        const progressFill = document.querySelector('.progress-fill');
-        const progressText = document.querySelector('.progress-text span');
-        const progressMessage = document.querySelector('.progress-message');
+            // Profile Dropdown
+            const profileButton = document.querySelector('.profile-button');
+            const profileDropdown = document.querySelector('.profile-dropdown');
 
-        function updateProgress() {
-            const total = checkboxes.length;
-            const completed = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
-            const percentage = (completed / total) * 100;
+            profileButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                profileDropdown.classList.toggle('active');
+            });
 
-            progressFill.style.width = `${percentage}%`;
-            progressText.textContent = `${Math.round(percentage)}% Complete`;
-
-            if (percentage === 100) {
-                progressMessage.textContent = "🎉 Congratulations! You've completed all exercises!";
-            } else if (percentage >= 75) {
-                progressMessage.textContent = "🔥 Almost there! Keep up the great work!";
-            } else if (percentage >= 50) {
-                progressMessage.textContent = "🚀 Halfway there! You're doing amazing!";
-            } else {
-                progressMessage.textContent = "💪 Keep going! You're making progress!";
-            }
-        }
-
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', updateProgress);
-        });
-
-        // FAQ Functionality
-        const faqQuestions = document.querySelectorAll('.faq-question');
-
-        faqQuestions.forEach(question => {
-            question.addEventListener('click', () => {
-                const faqItem = question.parentElement;
-                const wasActive = faqItem.classList.contains('active');
-                
-                // Close all FAQ items
-                document.querySelectorAll('.faq-item').forEach(item => {
-                    item.classList.remove('active');
-                });
-
-                // Toggle the clicked item
-                if (!wasActive) {
-                    faqItem.classList.add('active');
+            document.addEventListener('click', (e) => {
+                if (!profileButton.contains(e.target)) {
+                    profileDropdown.classList.remove('active');
                 }
             });
-        });
-    </script>
+
+            // Progress Tracking
+            const checkboxes = document.querySelectorAll('.video-checkbox input');
+            const progressFill = document.querySelector('.progress-fill');
+            const progressText = document.querySelector('.progress-text span');
+            const progressMessage = document.querySelector('.progress-message');
+
+            function updateProgress() {
+                const total = checkboxes.length;
+                const completed = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+                const percentage = (completed / total) * 100;
+
+                progressFill.style.width = `${percentage}%`;
+                progressText.textContent = `${Math.round(percentage)}% Complete`;
+
+                if (percentage === 100) {
+                    progressMessage.textContent = "🎉 Congratulations! You've completed all exercises!";
+                } else if (percentage >= 75) {
+                    progressMessage.textContent = "🔥 Almost there! Keep up the great work!";
+                } else if (percentage >= 50) {
+                    progressMessage.textContent = "🚀 Halfway there! You're doing amazing!";
+                } else {
+                    progressMessage.textContent = "💪 Keep going! You're making progress!";
+                }
+            }
+
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateProgress);
+            });
+
+            // FAQ Functionality
+            const faqQuestions = document.querySelectorAll('.faq-question');
+
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const faqItem = question.parentElement;
+                    const wasActive = faqItem.classList.contains('active');
+
+                    // Close all FAQ items
+                    document.querySelectorAll('.faq-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+
+                    // Toggle the clicked item
+                    if (!wasActive) {
+                        faqItem.classList.add('active');
+                    }
+                });
+            });
+
+        </script>
 </body>
+
 </html>

@@ -1,4 +1,6 @@
-require("dotenv").config();
+const dotenv = require("dotenv");
+
+dotenv.config();
 const express=require("express")
 const path=require("path")
 const session = require("express-session");
@@ -15,7 +17,7 @@ const forgotpasswordrouter=require("./routes/forgotpassword")
 const aboutuserrouter=require("./routes/about_user")
 //connection
 const connection=require("./connection")
-connection.connectMongodb('mongodb://127.0.0.1:27017/pain_o_relief')
+connection.connectMongodb(process.env.MONGO_URI)
 //views
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));

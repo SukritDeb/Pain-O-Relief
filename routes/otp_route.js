@@ -3,7 +3,7 @@ const { generateOTP, SendOTP } = require("../otp/otp");
 const router=express.Router();
 const User = require("../models/user");
 router.post("/generate_otp", async (req, res) => {
-    const email = req.cookies.userEmail;
+    const email = req.session.user_email;
     if (!email) {
         return res.status(400).json({ success: false, message: "Email not found in session." });
     }
@@ -31,3 +31,4 @@ router.post("/submit_otp", async (req, res) => {
         res.render("otp", { otpMessage: "Invalid OTP!" });
     }
 });
+module.exports=router;
