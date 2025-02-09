@@ -30,7 +30,8 @@ exercises, real-time consultations and progress tracking for accessible, holisti
 ## 🛠 Built With
 
 - *HTML, CSS, JavaScript*: For the frontend interface and interactivity.
-- *Node.js & Express.js*: Backend framework for server-side logic.
+- *Node.js*: Backend framework for server-side logic.
+- *MongoDB*: For storing the datas.
 - *EJS*: For dynamic templating and rendering views.
 - *Botpress*: AI-powered chatbot for user interaction.
 - *Agora*: For real-time video consultations.
