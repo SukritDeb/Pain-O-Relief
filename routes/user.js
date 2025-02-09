@@ -1,4 +1,5 @@
 const express=require("express")
+const path = require('path');
 const router=express.Router();
 const User = require("../models/user");
 const User2 = require("../models/patient_details");
@@ -20,6 +21,9 @@ router.get("/login", (req, res) => {
     const error = req.session.error; 
     req.session.error = null; 
     res.render("login", { error }); 
+});
+router.get("/video", (req, res) => {
+    res.sendFile(path.join(__dirname, '../video_call/index.html'));
 });
 router.post("/login",async (req,res)=>{
     const body=req.body;
