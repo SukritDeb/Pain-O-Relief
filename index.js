@@ -7,7 +7,7 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 
 const app=express()
-const port=4000
+const port=process.env.port
 //routes
 const userrouter=require("./routes/user")
 const userdashboard=require("./routes/user_dashboard")
