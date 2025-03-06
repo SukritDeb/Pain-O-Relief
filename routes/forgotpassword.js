@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
 
         if (result) {
             req.session.user_email = user_email;
-            return res.redirect("/forgotpassword/password_reset");
+            return res.render(otp);
         } 
         req.session.error = "User does not exist! Create an account...";
         return res.redirect("/forgotpassword");
