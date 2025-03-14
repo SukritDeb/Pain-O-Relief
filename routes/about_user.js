@@ -11,7 +11,7 @@ function calculateBMI(weight, height) {
 
     if (isNaN(w) || isNaN(h) || h === 0) {
         // If weight or height is invalid or height is zero, return NaN or handle appropriately
-        return "Invalid input";
+        console.log("Invalid input");
     }
 
     let bmi = w / (h * h);
