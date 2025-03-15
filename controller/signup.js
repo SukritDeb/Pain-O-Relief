@@ -34,12 +34,10 @@ async function post_signup_page(req,res){
         }
 
         await User.create({ Email: email, Password: password });
-         
-        const token = generateToken(email);
-        console.log("Token is : ", token);
+        const payload=email;
+        const token = generateToken(payload);
+       
         res.cookie("auth_token", token, { httpOnly: true, secure: process.env.NODE_ENV === 'production'? true : false, sameSite: "Strict" });
-
-
         res.redirect("/about"); // Redirect to login after successful signup
     } catch (err) {
         console.error("Error:", err);

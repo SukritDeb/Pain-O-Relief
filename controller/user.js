@@ -8,8 +8,6 @@ async function get_user(req,res){
 }
 async function get_index(req,res){
     const user = await User2.findOne({ Email: req.user});
-    console.log("user: ",user)
-    console.log("req.user: ",req.user)
     const  age=Number(user.Age);
     const  pain=user.Pain_Area;
     const link_array=videosuggester(age, pain);
@@ -31,9 +29,7 @@ async function post_login(req,res){
         res.redirect('/login');
     }
     else if(user_by_mail.Password==body.password){
-        const payload={
-            Email:body.email
-        }
+        const payload=body.email;
         const token = generateToken(payload);
         res.cookie("auth_token", token, { httpOnly: true, secure: process.env.NODE_ENV === 'production'? true : false, sameSite: "Strict" });
         return res.redirect('/index');
@@ -43,10 +39,15 @@ async function post_login(req,res){
         return res.redirect('/login');
     }
 }
+async function logoutuser(req,res){
+    res.clearCookie("auth_token");
+    res.redirect("/")
+}
 module.exports={
     get_user,
     get_index,
     get_login,
     post_login,
-    video
+    video,
+    logoutuser
 }

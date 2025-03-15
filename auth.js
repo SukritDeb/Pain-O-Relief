@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 const jwtAuthMiddleware = (req, res, next) => {
     const token = req.cookies?.auth_token;
     if(!token){
-        console.error("unauthorized user");
         return res.redirect("/login");
     }
     try{
