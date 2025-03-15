@@ -1,7 +1,8 @@
 const User = require("../models/user");
+
 const { generateOTP, SendOTP } = require("../otp/otp");
 async function generateotp(req,res){
-    const email = req.session.user_email;
+    const email = req.email;
     if (!email) {
         return res.status(400).json({ success: false, message: "Email not found in session." });
     }
