@@ -1,4 +1,5 @@
 const User = require("../models/user");
+
 async function get_forgetpassword(req,res){
     const error = req.session.error; 
     req.session.error = null; 
@@ -45,7 +46,7 @@ async function post_submitpassword(req,res){
 
     try {
         await User.updateOne({
-            Email: req.session.user_email
+            Email: req.email
         },{
             $set:{Password: body.password}
         });

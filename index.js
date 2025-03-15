@@ -17,7 +17,7 @@ const forgotpasswordrouter=require("./routes/forgotpassword")
 const aboutuserrouter=require("./routes/about_user")
 //connection
 const connection=require("./connection")
-connection.connectMongodb(process.env.MONGO_URI)
+connection.connectMongodb(process.env.MONGO_URL)
 //views
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));

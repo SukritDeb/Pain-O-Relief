@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const {jwtAuthMiddleware, generateToken} = require('./../auth');
 function validPassword(password) {
     const hasNumbers = /\d/.test(password);
     const hasSpecialChars = /[^a-zA-Z0-9]/.test(password);
@@ -33,13 +34,10 @@ async function post_signup_page(req,res){
         }
 
         await User.create({ Email: email, Password: password });
-          // Set secure cookie with email
-        res.cookie("userEmail", email, {
-            httpOnly: true,
-            secure: false,
-            maxAge: 24 * 60 * 60 * 1000, // 1 day
-        });
-
+         
+        const token = generateToken(email);
+        console.log("Token is : ", token);
+        res.cookie("auth_token", token, { httpOnly: true, secure: process.env.NODE_ENV === 'production'? true : false, sameSite: "Strict" });
 
 
         res.redirect("/about"); // Redirect to login after successful signup

@@ -1,14 +1,12 @@
 const User = require("../models/patient_details");
+
 function calculateBMI(weight, height) {
     let w = parseFloat(weight);
     let h = parseFloat(height);
     console.log("Weight:", w, "Height:", h);
-
     if (isNaN(w) || isNaN(h) || h === 0) {
-       
         console.log("Invalid input");
     }
-
     let bmi = w / (h * h);
     return bmi.toFixed(2); 
 }
@@ -18,11 +16,10 @@ async function get_about_page(req,res){
 async function user_profile(req,res){
     const body = req.body;
     const painArea = body.pain_area || 'Not specified';
-
     try {
     
         const newUser = await User.create({
-            Email: req.cookies.userEmail,
+            Email: req.user,
             Name: body.name,
             Age: body.age,
             Gender: body.gender,
